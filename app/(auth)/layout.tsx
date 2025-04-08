@@ -1,5 +1,5 @@
-import Logo from "@/components/Logo";
 import React from "react";
+import { Logo } from "@/ui/Logo";
 
 type Props = {
   children: React.ReactNode;
