@@ -1,8 +1,10 @@
 import { ClerkProvider } from "@clerk/nextjs";
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { RootThemeProvider } from "@/components/providers/RootProviders";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,6 +35,7 @@ export default function RootLayout({
         style={{ colorScheme: "dark" }}
       >
         <body className={`${geistSans.variable} ${geistMono.variable} `}>
+          <Toaster richColors position="bottom-right"/>
           <RootThemeProvider>{children}</RootThemeProvider>
         </body>
       </html>
