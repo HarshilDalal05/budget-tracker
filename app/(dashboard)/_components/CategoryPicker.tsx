@@ -1,5 +1,5 @@
 import { TranscationType } from "@/lib/types";
-import { Category } from "@prisma/client";
+import { Category } from "@/prisma/app/generated/prisma/client";
 import { useQuery } from "@tanstack/react-query";
 import React, { useCallback, useEffect, useState } from "react";
 import {

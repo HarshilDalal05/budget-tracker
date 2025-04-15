@@ -35,7 +35,7 @@ import Picker from "@emoji-mart/react";
 import data from "@emoji-mart/data";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { CreateCategory } from "../_actions/categories";
-import { Category } from "@prisma/client";
+import { Category } from "@/prisma/app/generated/prisma/client";
 import { toast } from "sonner";
 import { useTheme } from "next-themes";
 
