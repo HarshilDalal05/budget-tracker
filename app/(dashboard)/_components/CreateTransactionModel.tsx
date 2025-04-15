@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { TranscationType } from "@/lib/types";
 import {
   Dialog,
@@ -26,11 +26,20 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import CategoryPicker from "@/app/(dashboard)/_components/CategoryPicker";
-import { useQuery } from "@tanstack/react-query";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { CalendarIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import { format } from "date-fns";
 
 type Props = { trigger: React.ReactNode; type: TranscationType };
 
 const CreateTransactionModel = ({ trigger, type }: Props) => {
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const form = useForm<CreateTransactionSchemaType>({
     resolver: zodResolver(CreateTransactionSchema),
     defaultValues: {
@@ -49,7 +58,7 @@ const CreateTransactionModel = ({ trigger, type }: Props) => {
   return (
     <Dialog>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
-      <DialogContent>
+      <DialogContent onClick={(e) => e.stopPropagation()}>
         <DialogHeader>
           <DialogTitle>
             Create a new{" "}
@@ -93,6 +102,9 @@ const CreateTransactionModel = ({ trigger, type }: Props) => {
                 </FormItem>
               )}
             />
+            <div className="flex my-2">
+              Transaction: {form.watch("category")}
+            </div>
             <div className="flex items-center justify-between gap-2">
               <FormField
                 control={form.control}
@@ -109,6 +121,56 @@ const CreateTransactionModel = ({ trigger, type }: Props) => {
                     </FormControl>
                     <FormDescription>
                       "Select a category for this transaction"
+                    </FormDescription>
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="date"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Transaction date</FormLabel>
+                    <Popover
+                      open={isPopoverOpen}
+                      onOpenChange={setIsPopoverOpen}
+                    >
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant={"outline"}
+                            className={cn(
+                              "w-[240px] pl-3 text-left font-normal",
+                              !field.value && "text-muted-foreground"
+                            )}
+                          >
+                            {field.value ? (
+                              format(field.value, "PPP")
+                            ) : (
+                              <span>Pick a date</span>
+                            )}
+                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={field.value}
+                          onSelect={(date) => {
+                            field.onChange(date);
+                            setIsPopoverOpen(false);
+                          }}
+                          disabled={(date) =>
+                            date > new Date() || date < new Date("1900-01-01")
+                          }
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                    <FormDescription>
+                      "Select a date for this transaction"
                     </FormDescription>
                   </FormItem>
                 )}
