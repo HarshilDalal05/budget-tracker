@@ -4,7 +4,9 @@ import React, { useCallback, useState } from "react";
 import { TranscationType } from "@/lib/types";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -31,15 +33,20 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { CreateTransaction } from "../_actions/transactions";
+import { toast } from "sonner";
+import { DateToUTCDate } from "@/lib/helpers";
 
 type Props = { trigger: React.ReactNode; type: TranscationType };
 
 const CreateTransactionModel = ({ trigger, type }: Props) => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const form = useForm<CreateTransactionSchemaType>({
     resolver: zodResolver(CreateTransactionSchema),
     defaultValues: {
@@ -55,8 +62,48 @@ const CreateTransactionModel = ({ trigger, type }: Props) => {
     [form]
   );
 
+  const queryClient = useQueryClient();
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: CreateTransaction,
+    onSuccess: () => {
+      toast.success("Transaction Created successfully ", {
+        id: "create-transaction",
+      });
+      form.reset({
+        type,
+        description: "",
+        amount: 0,
+        date: new Date(),
+        category: undefined,
+      });
+
+      // After creating a transaction, we need to invalidate the overview query which will refetch data in the homepage
+      queryClient.invalidateQueries({
+        queryKey: ["overview"],
+      });
+
+      setIsOpen((prev) => !prev);
+    },
+    onError: (error) => {
+      console.error(error);
+      toast.error("Something went wrong !!!", { id: "create-transaction" });
+    },
+  });
+
+  const onSubmit = useCallback(
+    (values: CreateTransactionSchemaType) => {
+      toast.loading("Creating transaction ....", {
+        id: "create-transaction",
+      });
+
+      mutate({ ...values, date: DateToUTCDate(values.date) });
+    },
+    [mutate]
+  );
+
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
       <DialogContent onClick={(e) => e.stopPropagation()}>
         <DialogHeader>
@@ -74,7 +121,7 @@ const CreateTransactionModel = ({ trigger, type }: Props) => {
           </DialogTitle>
         </DialogHeader>
         <Form {...form}>
-          <form className="space-y-4">
+          <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
               name="description"
@@ -110,7 +157,7 @@ const CreateTransactionModel = ({ trigger, type }: Props) => {
                 control={form.control}
                 name="category"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="flex flex-col">
                     <FormLabel>Category</FormLabel>
                     <FormControl>
                       <CategoryPicker
@@ -130,7 +177,7 @@ const CreateTransactionModel = ({ trigger, type }: Props) => {
                 control={form.control}
                 name="date"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="flex flex-col">
                     <FormLabel>Transaction date</FormLabel>
                     <Popover
                       open={isPopoverOpen}
@@ -159,6 +206,7 @@ const CreateTransactionModel = ({ trigger, type }: Props) => {
                           mode="single"
                           selected={field.value}
                           onSelect={(date) => {
+                            if (!date) return;
                             field.onChange(date);
                             setIsPopoverOpen(false);
                           }}
@@ -178,6 +226,22 @@ const CreateTransactionModel = ({ trigger, type }: Props) => {
             </div>
           </form>
         </Form>
+        <DialogFooter>
+          <DialogClose asChild>
+            <Button
+              type="button"
+              variant={"secondary"}
+              onClick={() => {
+                form.reset();
+              }}
+            >
+              Cancel
+            </Button>
+          </DialogClose>
+          <Button onClick={form.handleSubmit(onSubmit)} disabled={isPending}>
+            {!isPending ? "Create" : <Loader2 className="animate-spin" />}
+          </Button>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
