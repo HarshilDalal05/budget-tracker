@@ -20,12 +20,12 @@ import {
 } from "@/components/ui/popover";
 import { Currencies, Currency } from "@/lib/currencies";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import SkeletonWrapper from "../SkeletonWrapper";
+import SkeletonWrapper from "@/ui/SkeletonWrapper";
 import { UserSettings } from "@prisma/client";
 import { UpdateUserCurrency } from "@/app/wizard/_actions/userSettings";
 import { toast } from "sonner";
 
-export function CurrencyComboBox() {
+export default function CurrencyComboBox() {
   const [open, setOpen] = React.useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const [selectOption, setSelectOption] = React.useState<Currency | null>(null);
@@ -64,7 +64,7 @@ export function CurrencyComboBox() {
   const handleSelection = React.useCallback(
     (currency: Currency | null) => {
       if (!currency) {
-        toast.error("Please selaect a currency");
+        toast.error("Please select a currency");
         return;
       }
       toast.loading("Updating currency .....", { id: "update-currency" });

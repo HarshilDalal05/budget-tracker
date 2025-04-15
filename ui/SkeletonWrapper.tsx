@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 
 type Props = {
   children: React.ReactNode;
-  isLoading: boolean;
+  isLoading?: boolean;
   fullWidth?: boolean;
 };
 

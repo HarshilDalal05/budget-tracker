@@ -12,7 +12,9 @@ import {
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Logo } from "@/ui/Logo";
-import { CurrencyComboBox } from "@/ui/Wizard/CurrencyComboBox";
+import CurrencyComboBox from "./_components/CurrencyComboBox";
+
+
 type Props = {};
 
 const page = async (props: Props) => {

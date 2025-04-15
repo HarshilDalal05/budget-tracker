@@ -9,14 +9,14 @@ export async function GET(request: Request) {
     redirect("/sign-in");
   }
 
-  let userSettings = await prisma.UserSettings.findUnique({
+  let userSettings = await prisma.userSettings.findUnique({
     where: {
       userId: user.id,
     },
   });
 
   if (!userSettings) {
-    userSettings = await prisma.UserSettings.create({
+    userSettings = await prisma.userSettings.create({
       data: {
         userId: user.id,
         currency: "INR",
