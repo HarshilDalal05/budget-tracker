@@ -6,6 +6,7 @@ import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import CreateTransactionModel from "./_components/CreateTransactionModel";
+import Overview from "./_components/Overview";
 
 type Props = {};
 
@@ -36,7 +37,7 @@ const page = async (props: Props) => {
               trigger={
                 <Button
                   variant="secondary"
-                  className="border-emerald-500 bg-emerald-950 text-white hover:bg-emerald-700 hover:text-white"
+                  className="border-emerald-500 bg-emerald-600 text-white hover:bg-emerald-800 hover:text-white"
                 >
                   New Income
                 </Button>
@@ -47,7 +48,7 @@ const page = async (props: Props) => {
               trigger={
                 <Button
                   variant="secondary"
-                  className="border-rose-500 bg-rose-950 text-white hover:bg-rose-700 hover:text-white"
+                  className="border-rose-500 bg-rose-600 text-white hover:bg-rose-800 hover:text-white"
                 >
                   New Expense
                 </Button>
@@ -57,6 +58,7 @@ const page = async (props: Props) => {
           </div>
         </div>
       </div>
+      <Overview userSettings={userSettings} />
     </div>
   );
 };

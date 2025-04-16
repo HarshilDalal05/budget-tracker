@@ -9,7 +9,6 @@ import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
 export async function CreateTransaction(form: CreateTransactionSchemaType) {
-  console.log(form)
   const body = CreateTransactionSchema.safeParse(form);
 
   if (!body.success) {
