@@ -42,9 +42,10 @@ import { useTheme } from "next-themes";
 type Props = {
   type: TranscationType;
   successCallback: (category: Category) => void;
+  trigger?: React.ReactNode;
 };
 
-const CreateCategoryDialog = ({ type, successCallback }: Props) => {
+const CreateCategoryDialog = ({ type, successCallback, trigger }: Props) => {
   const [open, setOpen] = useState(false);
   const form = useForm<CreateCategorySchemaType>({
     resolver: zodResolver(CreateCategorySchema),
@@ -92,12 +93,16 @@ const CreateCategoryDialog = ({ type, successCallback }: Props) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button
-          variant={"ghost"}
-          className="flex border-separate items-center justify-start rounded-none"
-        >
-          <PlusSquare className="mr-2 h-4 w-4" /> Create new category
-        </Button>
+        {trigger ? (
+          trigger
+        ) : (
+          <Button
+            variant={"ghost"}
+            className="flex border-separate items-center justify-start rounded-none"
+          >
+            <PlusSquare className="mr-2 h-4 w-4" /> Create new category
+          </Button>
+        )}
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
