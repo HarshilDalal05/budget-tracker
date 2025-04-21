@@ -99,9 +99,7 @@ const CreateCategoryDialog = ({ type, successCallback }: Props) => {
           <PlusSquare className="mr-2 h-4 w-4" /> Create new category
         </Button>
       </DialogTrigger>
-      <DialogContent
-        className={theme.resolvedTheme === "dark" ? "bg-black" : "bg-white"}
-      >
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>
             Create{" "}

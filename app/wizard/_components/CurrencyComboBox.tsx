@@ -87,7 +87,7 @@ export default function CurrencyComboBox() {
               {selectOption ? <>{selectOption.label}</> : <>Set currency</>}
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-[200px] p-0" align="start">
+          <PopoverContent className="w-[200px] p-0" align="start" remove="true">
             <OptionList setOpen={setOpen} setSelectedOption={handleSelection} />
           </PopoverContent>
         </Popover>

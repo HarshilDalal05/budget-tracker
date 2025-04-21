@@ -7,6 +7,7 @@ import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import CreateTransactionModel from "./_components/CreateTransactionModel";
 import Overview from "./_components/Overview";
+import History from "./_components/History";
 
 type Props = {};
 
@@ -59,6 +60,7 @@ const page = async (props: Props) => {
         </div>
       </div>
       <Overview userSettings={userSettings} />
+      <History userSettings={userSettings} />
     </div>
   );
 };

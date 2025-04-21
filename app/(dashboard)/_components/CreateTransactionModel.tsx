@@ -107,10 +107,7 @@ const CreateTransactionModel = ({ trigger, type }: Props) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
-      <DialogContent
-        className={theme.resolvedTheme === "dark" ? "bg-black" : "bg-white"}
-        onClick={(e) => e.stopPropagation()}
-      >
+      <DialogContent onClick={(e) => e.stopPropagation()}>
         <DialogHeader>
           <DialogTitle>
             Create a new{" "}
@@ -206,7 +203,11 @@ const CreateTransactionModel = ({ trigger, type }: Props) => {
                           </Button>
                         </FormControl>
                       </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
+                      <PopoverContent
+                        className="w-auto p-0"
+                        align="start"
+                        remove="true"
+                      >
                         <Calendar
                           mode="single"
                           selected={field.value}
