@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import { MAX_DATE_RANGE_DAYS } from "./constants";
 import { toast } from "sonner";
 import StatsCards from "./StatsCards";
+import CategoriesStats from "./CategoriesStats";
 
 type Props = {
   userSettings: UserSettings;
@@ -41,11 +42,18 @@ const Overview = ({ userSettings }: Props) => {
           />
         </div>
       </div>
-      <StatsCards
-        userSettings={userSettings}
-        from={dateRange.from}
-        to={dateRange.to}
-      />
+      <div className="flex px-4 flex-col gap-5">
+        <StatsCards
+          userSettings={userSettings}
+          from={dateRange.from}
+          to={dateRange.to}
+        />
+        <CategoriesStats
+          userSettings={userSettings}
+          from={dateRange.from}
+          to={dateRange.to}
+        />
+      </div>
     </>
   );
 };
