@@ -8,17 +8,22 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useMemo } from "react";
 import CategoriesCard from "./CategoriesCard";
 
-type Props = { userSettings: UserSettings; from: Date; to: Date };
+type Props = {
+  userSettings: UserSettings;
+  from: Date;
+  to: Date;
+  range: boolean;
+};
 
-const CategoriesStats = ({ userSettings, from, to }: Props) => {
+const CategoriesStats = ({ userSettings, from, to, range }: Props) => {
+  const api: string = range
+    ? `/api/stats/categories?from=${DateToUTCDate(from)}&to=${DateToUTCDate(
+        to
+      )}`
+    : `/api/stats/categories`;
   const statsQuery = useQuery<getCategoriesStatsResponseType>({
     queryKey: ["overview", "stats", "categories", from, to],
-    queryFn: () =>
-      fetch(
-        `/api/stats/categories?from=${DateToUTCDate(from)}&to=${DateToUTCDate(
-          to
-        )}`
-      ).then((res) => res.json()),
+    queryFn: () => fetch(api).then((res) => res.json()),
   });
 
   const formatter = useMemo(() => {

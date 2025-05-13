@@ -20,11 +20,10 @@ export async function GET(request: Request) {
     });
   }
 
-  const stats = await getBalanceStats(
-    user.id,
-    queryParams.data?.from,
-    queryParams.data?.to
-  );
+  const fromDate = from ? queryParams.data?.from : null;
+  const toDate = from ? queryParams.data?.from : null;
+
+  const stats = await getBalanceStats(user.id, fromDate, toDate);
 
   return Response.json(stats);
 }
@@ -33,16 +32,27 @@ export type GetBalanceStatsResponseType = Awaited<
   ReturnType<typeof getBalanceStats>
 >;
 
-export async function getBalanceStats(userId: string, from: Date, to: Date) {
-  const totals = await prisma.transaction.groupBy({
-    by: ["type"],
-    where: {
+export async function getBalanceStats(
+  userId: string,
+  from: Date | null,
+  to: Date | null
+) {
+  let criteria;
+  if (from && to) {
+    criteria = {
       userId,
       date: {
         gte: from,
         lte: to,
       },
-    },
+    };
+  } else {
+    criteria = { userId };
+  }
+
+  const totals = await prisma.transaction.groupBy({
+    by: ["type"],
+    where: criteria,
     _sum: {
       amount: true,
     },

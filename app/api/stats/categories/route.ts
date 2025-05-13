@@ -18,11 +18,10 @@ export async function GET(request: Request) {
     throw new Error(queryParams.error.message);
   }
 
-  const stats = await getCategoriesStats(
-    user.id,
-    queryParams.data.from,
-    queryParams.data.to
-  );
+  const fromDate = from ? queryParams.data?.from : null;
+  const toDate = from ? queryParams.data?.from : null;
+
+  const stats = await getCategoriesStats(user.id, fromDate, toDate);
 
   return Response.json(stats);
 }
@@ -30,16 +29,26 @@ export type getCategoriesStatsResponseType = Awaited<
   ReturnType<typeof getCategoriesStats>
 >;
 
-async function getCategoriesStats(userId: string, from: Date, to: Date) {
-  const stats = await prisma.transaction.groupBy({
-    by: ["type", "category", "categoryIcon"],
-    where: {
+async function getCategoriesStats(
+  userId: string,
+  from: Date | null,
+  to: Date | null
+) {
+  let criteria;
+  if (from && to) {
+    criteria = {
       userId,
       date: {
         gte: from,
         lte: to,
       },
-    },
+    };
+  } else {
+    criteria = { userId };
+  }
+  const stats = await prisma.transaction.groupBy({
+    by: ["type", "category", "categoryIcon"],
+    where: criteria,
     _sum: {
       amount: true,
     },

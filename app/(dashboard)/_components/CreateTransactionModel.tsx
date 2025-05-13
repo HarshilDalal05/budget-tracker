@@ -41,14 +41,12 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { CreateTransaction } from "../_actions/transactions";
 import { toast } from "sonner";
 import { DateToUTCDate } from "@/lib/helpers";
-import { useTheme } from "next-themes";
 
 type Props = { trigger: React.ReactNode; type: TranscationType };
 
 const CreateTransactionModel = ({ trigger, type }: Props) => {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const theme = useTheme();
   const form = useForm<CreateTransactionSchemaType>({
     resolver: zodResolver(CreateTransactionSchema),
     defaultValues: {

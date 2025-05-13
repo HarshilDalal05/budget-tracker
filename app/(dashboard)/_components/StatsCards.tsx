@@ -7,15 +7,20 @@ import { BanknoteArrowDown, BanknoteArrowUp, Wallet } from "lucide-react";
 import React, { useMemo } from "react";
 import StatCard from "./StatCard";
 
-type Props = { userSettings: UserSettings; from: Date; to: Date };
+type Props = {
+  userSettings: UserSettings;
+  from: Date;
+  to: Date;
+  range: boolean;
+};
 
-const StatsCards = ({ userSettings, from, to }: Props) => {
+const StatsCards = ({ userSettings, from, to, range }: Props) => {
+  const api:string = range
+    ? `/api/stats/balance?from=${DateToUTCDate(from)}&to=${DateToUTCDate(to)}`
+    : `/api/stats/balance`;
   const statsQuery = useQuery<GetBalanceStatsResponseType>({
     queryKey: ["overview", "stats", from, to],
-    queryFn: () =>
-      fetch(
-        `/api/stats/balance?from=${DateToUTCDate(from)}&to=${DateToUTCDate(to)}`
-      ).then((res) => res.json()),
+    queryFn: () => fetch(api).then((res) => res.json()),
   });
 
   const formatter = useMemo(() => {
