@@ -16,9 +16,9 @@ import { Logo, LogoMobile } from "../Logo";
 import NavbarItem from "./NavItem";
 import { NAVBAR_ITEMS } from "../constants";
 
-type Props = {};
 
-const MobileNavbar = (props: Props) => {
+
+const MobileNavbar = () => {
   const [isOpen, setIsOpen] = React.useState(false);
   return (
     <div className="block md:hidden border-separate bg-background">

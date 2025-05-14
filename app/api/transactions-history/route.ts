@@ -1,8 +1,8 @@
-import { GetFormatterForCurrency } from "@/lib/helpers";
 import prisma from "@/lib/prisma";
-import { OverviewQuerySchema } from "@/schema/overview";
-import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import { currentUser } from "@clerk/nextjs/server";
+import { GetFormatterForCurrency } from "@/lib/helpers";
+import { OverviewQuerySchema } from "@/schema/overview";
 
 export async function GET(request: Request) {
   const user = await currentUser();
@@ -56,7 +56,6 @@ async function getTransactionsHistory(
   } else {
     criteria = { userId };
   }
-  console.log({ criteria });
 
   const formatter = GetFormatterForCurrency(userSettings.currency);
   const transactions = await prisma.transaction.findMany({

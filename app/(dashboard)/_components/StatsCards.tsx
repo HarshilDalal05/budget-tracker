@@ -1,10 +1,13 @@
-import { GetBalanceStatsResponseType } from "@/app/api/stats/balance/route";
-import { DateToUTCDate, GetFormatterForCurrency } from "@/lib/helpers";
-import { UserSettings } from "@/prisma/app/generated/prisma/client";
-import SkeletonWrapper from "@/ui/SkeletonWrapper";
-import { useQuery } from "@tanstack/react-query";
-import { BanknoteArrowDown, BanknoteArrowUp, Wallet } from "lucide-react";
 import React, { useMemo } from "react";
+
+import { BanknoteArrowDown, BanknoteArrowUp, Wallet } from "lucide-react";
+
+import { useQuery } from "@tanstack/react-query";
+import SkeletonWrapper from "@/ui/SkeletonWrapper";
+import { UserSettings } from "@/prisma/app/generated/prisma/client";
+import { DateToUTCDate, GetFormatterForCurrency } from "@/lib/helpers";
+import { GetBalanceStatsResponseType } from "@/app/api/stats/balance/route";
+
 import StatCard from "./StatCard";
 
 type Props = {
@@ -15,7 +18,7 @@ type Props = {
 };
 
 const StatsCards = ({ userSettings, from, to, range }: Props) => {
-  const api:string = range
+  const api: string = range
     ? `/api/stats/balance?from=${DateToUTCDate(from)}&to=${DateToUTCDate(to)}`
     : `/api/stats/balance`;
   const statsQuery = useQuery<GetBalanceStatsResponseType>({

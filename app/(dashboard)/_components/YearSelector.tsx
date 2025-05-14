@@ -1,3 +1,6 @@
+import React from "react";
+
+import { Period } from "@/lib/types";
 import { GetHistoryPeriodsResponseType } from "@/app/api/history-periods/route";
 import {
   Select,
@@ -6,8 +9,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Period } from "@/lib/types";
-import React from "react";
 
 type Props = {
   period: Period;

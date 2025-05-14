@@ -1,19 +1,22 @@
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import { TranscationType } from "@/lib/types";
-import SkeletonWrapper from "@/ui/SkeletonWrapper";
-import { useQuery } from "@tanstack/react-query";
+import React from "react";
+
 import {
   BanknoteArrowDown,
   BanknoteArrowUp,
   PlusSquare,
   Trash2Icon,
 } from "lucide-react";
-import React from "react";
-import CreateCategoryDialog from "./CreateCategoryDialog";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
+
 import { cn } from "@/lib/utils";
+import { TranscationType } from "@/lib/types";
+import { Button } from "@/components/ui/button";
+import { useQuery } from "@tanstack/react-query";
+import SkeletonWrapper from "@/ui/SkeletonWrapper";
+import { Separator } from "@/components/ui/separator";
 import { Category } from "@/prisma/app/generated/prisma/client";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+
+import CreateCategoryDialog from "./CreateCategoryDialog";
 import DeleteCategoryDialog from "./DeleteCategoryDialog";
 
 type Props = { type: TranscationType };

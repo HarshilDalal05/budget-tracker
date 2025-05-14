@@ -1,7 +1,7 @@
 import prisma from "@/lib/prisma";
-import { OverviewQuerySchema } from "@/schema/overview";
-import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import { currentUser } from "@clerk/nextjs/server";
+import { OverviewQuerySchema } from "@/schema/overview";
 
 export async function GET(request: Request) {
   const user = await currentUser();

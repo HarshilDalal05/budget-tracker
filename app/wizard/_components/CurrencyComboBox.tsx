@@ -1,9 +1,22 @@
 "use client";
 
-import * as React from "react";
+import React from "react";
 
-import { useMediaQuery } from "@/hooks/use-media-query";
+import { toast } from "sonner";
+
 import { Button } from "@/components/ui/button";
+import SkeletonWrapper from "@/ui/SkeletonWrapper";
+import { useMediaQuery } from "@/hooks/use-media-query";
+import { Currencies, Currency } from "@/lib/currencies";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { UserSettings } from "@/prisma/app/generated/prisma/client";
+import { UpdateUserCurrency } from "@/app/wizard/_actions/userSettings";
+import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import {
   Command,
   CommandEmpty,
@@ -12,18 +25,6 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { Currencies, Currency } from "@/lib/currencies";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import SkeletonWrapper from "@/ui/SkeletonWrapper";
-import { UserSettings } from "@/prisma/app/generated/prisma/client";
-import { UpdateUserCurrency } from "@/app/wizard/_actions/userSettings";
-import { toast } from "sonner";
 
 export default function CurrencyComboBox() {
   const [open, setOpen] = React.useState(false);

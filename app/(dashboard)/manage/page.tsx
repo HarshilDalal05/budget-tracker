@@ -1,4 +1,6 @@
 "use client";
+import React from "react";
+
 import CurrencyComboBox from "@/app/wizard/_components/CurrencyComboBox";
 import {
   Card,
@@ -7,10 +9,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import React from "react";
+
 import CategoryList from "../_components/CategoryList";
 
-export default function page() {
+export default function Page() {
   return (
     <>
       {/* HEADER */}

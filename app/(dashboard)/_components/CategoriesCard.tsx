@@ -1,8 +1,9 @@
-import { getCategoriesStatsResponseType } from "@/app/api/stats/categories/route";
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import React from "react";
+
 import { Progress } from "@/components/ui/progress";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import React from "react";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import { getCategoriesStatsResponseType } from "@/app/api/stats/categories/route";
 
 type Props = {
   formatter: Intl.NumberFormat;

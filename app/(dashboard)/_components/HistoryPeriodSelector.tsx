@@ -1,11 +1,13 @@
 "use client";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Period, Timeframe } from "@/lib/types";
-import SkeletonWrapper from "@/ui/SkeletonWrapper";
-import { useQuery } from "@tanstack/react-query";
 import React from "react";
+
+import { Period, Timeframe } from "@/lib/types";
+import { useQuery } from "@tanstack/react-query";
+import SkeletonWrapper from "@/ui/SkeletonWrapper";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
 import YearSelector from "./YearSelector";
-import MonthSelector from "./MothSelector";
+import MonthSelector from "./MonthSelector";
 
 type Props = {
   period: Period;

@@ -1,5 +1,34 @@
 "use client";
+import React, { useCallback, useState } from "react";
+
+import { toast } from "sonner";
+import { useTheme } from "next-themes";
+import { useForm } from "react-hook-form";
+import { CircleOff, Loader2, PlusSquare } from "lucide-react";
+
+import { cn } from "@/lib/utils";
+import data from "@emoji-mart/data";
+import Picker from "@emoji-mart/react";
+import { Input } from "@/components/ui/input";
+import { TranscationType } from "@/lib/types";
 import { Button } from "@/components/ui/button";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { PopoverTrigger } from "@/components/ui/popover";
+import { Category } from "@/prisma/app/generated/prisma/client";
+import { Popover, PopoverContent } from "@radix-ui/react-popover";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  CreateCategorySchema,
+  CreateCategorySchemaType,
+} from "@/schema/categories";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "@/components/ui/form";
 import {
   Dialog,
   DialogClose,
@@ -10,34 +39,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { PopoverTrigger } from "@/components/ui/popover";
-import { TranscationType } from "@/lib/types";
-import { cn } from "@/lib/utils";
-import {
-  CreateCategorySchema,
-  CreateCategorySchemaType,
-} from "@/schema/categories";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Popover, PopoverContent } from "@radix-ui/react-popover";
-import { CircleOff, Loader2, PlusSquare } from "lucide-react";
-import React, { useCallback, useState } from "react";
-import { useForm } from "react-hook-form";
-import Picker from "@emoji-mart/react";
-import data from "@emoji-mart/data";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+
 import { CreateCategory } from "../_actions/categories";
-import { Category } from "@/prisma/app/generated/prisma/client";
-import { toast } from "sonner";
-import { useTheme } from "next-themes";
 
 type Props = {
   type: TranscationType;
@@ -170,6 +173,7 @@ const CreateCategoryDialog = ({ type, successCallback, trigger }: Props) => {
                         <Picker
                           theme={theme.resolvedTheme}
                           data={data}
+                            // eslint-disable-next-line  @typescript-eslint/no-explicit-any
                           onEmojiSelect={(emoji: any) => {
                             field.onChange(emoji.native);
                           }}

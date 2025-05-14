@@ -1,14 +1,8 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { GetFormatterForCurrency } from "@/lib/helpers";
-import { Period, Timeframe } from "@/lib/types";
-import { UserSettings } from "@/prisma/app/generated/prisma/client";
 import React, { useCallback, useMemo, useState } from "react";
-import HistoryPeriodSelector from "./HistoryPeriodSelector";
-import { Badge } from "@/components/ui/badge";
-import { useQuery } from "@tanstack/react-query";
-import SkeletonWrapper from "@/ui/SkeletonWrapper";
+
+import CountUp from "react-countup";
 import {
   Bar,
   BarChart,
@@ -18,8 +12,17 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+
 import { cn } from "@/lib/utils";
-import CountUp from "react-countup";
+import { Badge } from "@/components/ui/badge";
+import { Period, Timeframe } from "@/lib/types";
+import { useQuery } from "@tanstack/react-query";
+import SkeletonWrapper from "@/ui/SkeletonWrapper";
+import { GetFormatterForCurrency } from "@/lib/helpers";
+import { UserSettings } from "@/prisma/app/generated/prisma/client";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+import HistoryPeriodSelector from "./HistoryPeriodSelector";
 
 type Props = { userSettings: UserSettings };
 
@@ -62,7 +65,7 @@ const TooltipRow = ({
     </div>
   );
 };
-
+// eslint-disable-next-line  @typescript-eslint/no-explicit-any
 const CustomTooltip = ({ active, payload, formatter }: any) => {
   if (!active || !payload || payload.length === 0) return null;
 

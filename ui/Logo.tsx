@@ -3,9 +3,9 @@
 import React from "react";
 import { PiggyBank } from "lucide-react";
 
-type Props = {};
 
-export const Logo = (props: Props) => {
+
+export const Logo = () => {
   return (
     <a href="/" className="flex items-center gap-2">
       <PiggyBank className="stroke h-11 w-11 stroke-amber-500 stroke-[1.5]" />

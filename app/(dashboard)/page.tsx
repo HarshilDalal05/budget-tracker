@@ -1,17 +1,19 @@
 "use server";
 
 import React from "react";
+
 import prisma from "@/lib/prisma";
-import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import CreateTransactionModel from "./_components/CreateTransactionModel";
-import Overview from "./_components/Overview";
+import { currentUser } from "@clerk/nextjs/server";
+
 import History from "./_components/History";
+import Overview from "./_components/Overview";
+import CreateTransactionModel from "./_components/CreateTransactionModel";
 
-type Props = {};
 
-const page = async (props: Props) => {
+
+const Page = async () => {
   const user = await currentUser();
 
   if (!user) {
@@ -65,4 +67,4 @@ const page = async (props: Props) => {
   );
 };
 
-export default page;
+export default Page;

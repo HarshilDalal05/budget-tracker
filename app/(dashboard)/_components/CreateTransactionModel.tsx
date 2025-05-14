@@ -1,7 +1,38 @@
 "use client";
 
 import React, { useCallback, useState } from "react";
+
+import { toast } from "sonner";
+import { format } from "date-fns";
+import { useForm } from "react-hook-form";
+import { CalendarIcon, Loader2 } from "lucide-react";
+
+import { cn } from "@/lib/utils";
 import { TranscationType } from "@/lib/types";
+import { Input } from "@/components/ui/input";
+import { DateToUTCDate } from "@/lib/helpers";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import CategoryPicker from "@/app/(dashboard)/_components/CategoryPicker";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import {
+  CreateTransactionSchema,
+  CreateTransactionSchemaType,
+} from "@/schema/transaction";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "@/components/ui/form";
 import {
   Dialog,
   DialogClose,
@@ -11,36 +42,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { cn } from "@/lib/utils";
-import { useForm } from "react-hook-form";
-import {
-  CreateTransactionSchema,
-  CreateTransactionSchemaType,
-} from "@/schema/transaction";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import CategoryPicker from "@/app/(dashboard)/_components/CategoryPicker";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { CalendarIcon, Loader2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
-import { format } from "date-fns";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+
 import { CreateTransaction } from "../_actions/transactions";
-import { toast } from "sonner";
-import { DateToUTCDate } from "@/lib/helpers";
 
 type Props = { trigger: React.ReactNode; type: TranscationType };
 
@@ -167,7 +170,7 @@ const CreateTransactionModel = ({ trigger, type }: Props) => {
                       />
                     </FormControl>
                     <FormDescription>
-                      "Select a category for this transaction"
+                      Select a category for this transaction
                     </FormDescription>
                   </FormItem>
                 )}
@@ -222,7 +225,7 @@ const CreateTransactionModel = ({ trigger, type }: Props) => {
                       </PopoverContent>
                     </Popover>
                     <FormDescription>
-                      "Select a date for this transaction"
+                      Select a date for this transaction
                     </FormDescription>
                   </FormItem>
                 )}

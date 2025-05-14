@@ -1,13 +1,16 @@
 "use client";
+import React, { useState } from "react";
+
+import { toast } from "sonner";
+import { differenceInDays, startOfMonth } from "date-fns";
+
+import { Button } from "@/components/ui/button";
 import { DateRangePicker } from "@/components/ui/date-range-picker";
 import { UserSettings } from "@/prisma/app/generated/prisma/client";
-import { differenceInDays, startOfMonth } from "date-fns";
-import React, { useState } from "react";
-import { MAX_DATE_RANGE_DAYS } from "./constants";
-import { toast } from "sonner";
+
 import StatsCards from "./StatsCards";
 import CategoriesStats from "./CategoriesStats";
-import { Button } from "@/components/ui/button";
+import { MAX_DATE_RANGE_DAYS } from "./constants";
 
 type Props = {
   userSettings: UserSettings;

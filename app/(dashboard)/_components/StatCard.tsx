@@ -1,6 +1,8 @@
-import { Card } from "@/components/ui/card";
 import React, { ReactNode, useCallback } from "react";
+
 import CountUp from "react-countup";
+
+import { Card } from "@/components/ui/card";
 
 type Props = {
   formatter: Intl.NumberFormat;

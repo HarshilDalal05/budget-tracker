@@ -1,6 +1,10 @@
 import React from "react";
-import { currentUser } from "@clerk/nextjs/server";
+
+import Link from "next/link";
+import { Logo } from "@/ui/Logo";
 import { redirect } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { currentUser } from "@clerk/nextjs/server";
 import { Separator } from "@/components/ui/separator";
 import {
   Card,
@@ -9,15 +13,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
-import { Logo } from "@/ui/Logo";
+
 import CurrencyComboBox from "./_components/CurrencyComboBox";
 
 
-type Props = {};
 
-const page = async (props: Props) => {
+const Page = async () => {
   const user = await currentUser();
 
   if (!user) {
@@ -67,4 +68,4 @@ const page = async (props: Props) => {
   );
 };
 
-export default page;
+export default Page;

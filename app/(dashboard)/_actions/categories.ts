@@ -1,14 +1,14 @@
 "use server";
 
 import prisma from "@/lib/prisma";
+import { redirect } from "next/navigation";
+import { currentUser } from "@clerk/nextjs/server";
 import {
   CreateCategorySchema,
   CreateCategorySchemaType,
   DeleteCategorySchema,
   DeleteCategorySchemaType,
 } from "@/schema/categories";
-import { currentUser } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
 
 export async function CreateCategory(form: CreateCategorySchemaType) {
   const body = CreateCategorySchema.safeParse(form);

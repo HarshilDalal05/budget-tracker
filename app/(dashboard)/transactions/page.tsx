@@ -1,14 +1,17 @@
 "use client";
 
-import { DateRangePicker } from "@/components/ui/date-range-picker";
-import { differenceInDays, startOfMonth } from "date-fns";
 import React, { useState } from "react";
-import { MAX_DATE_RANGE_DAYS } from "../_components/constants";
-import { toast } from "sonner";
-import TransactionsTable from "./_components/TransactionsTable";
-import { Button } from "@/components/ui/button";
 
-export default function page() {
+import { toast } from "sonner";
+import { differenceInDays, startOfMonth } from "date-fns";
+
+import { Button } from "@/components/ui/button";
+import { DateRangePicker } from "@/components/ui/date-range-picker";
+
+import { MAX_DATE_RANGE_DAYS } from "../_components/constants";
+import TransactionsTable from "./_components/TransactionsTable";
+
+export default function Page() {
   const [dateRange, setDateRange] = useState<{ from: Date; to: Date }>({
     from: startOfMonth(new Date()),
     to: new Date(),

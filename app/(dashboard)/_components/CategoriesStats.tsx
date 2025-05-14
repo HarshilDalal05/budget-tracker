@@ -1,11 +1,11 @@
-"use client";
-
-import { getCategoriesStatsResponseType } from "@/app/api/stats/categories/route";
-import { DateToUTCDate, GetFormatterForCurrency } from "@/lib/helpers";
-import { UserSettings } from "@/prisma/app/generated/prisma/client";
-import SkeletonWrapper from "@/ui/SkeletonWrapper";
-import { useQuery } from "@tanstack/react-query";
 import React, { useMemo } from "react";
+
+import { useQuery } from "@tanstack/react-query";
+import SkeletonWrapper from "@/ui/SkeletonWrapper";
+import { UserSettings } from "@/prisma/app/generated/prisma/client";
+import { DateToUTCDate, GetFormatterForCurrency } from "@/lib/helpers";
+import { getCategoriesStatsResponseType } from "@/app/api/stats/categories/route";
+
 import CategoriesCard from "./CategoriesCard";
 
 type Props = {

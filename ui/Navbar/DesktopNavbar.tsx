@@ -13,9 +13,9 @@ import { ThemeMenu } from "../ThemeMenu";
 import NavbarItem from "./NavItem";
 import { NAVBAR_ITEMS } from "../constants";
 
-type Props = {};
 
-const DesktopNavbar = (props: Props) => {
+
+const DesktopNavbar = () => {
   return (
     <div className="hidden md:block border-separate border-b bg-background ">
       <nav className="w-full flex items-center justify-between px-8">

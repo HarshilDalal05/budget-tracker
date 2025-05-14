@@ -1,10 +1,12 @@
 "use client";
 
+import React from "react";
+
+import { toast } from "sonner";
+
+import { TranscationType } from "@/lib/types";
 import { Category } from "@/prisma/app/generated/prisma/client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import React from "react";
-import { DeleteCategory } from "../_actions/categories";
-import { toast } from "sonner";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -16,7 +18,8 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { TranscationType } from "@/lib/types";
+
+import { DeleteCategory } from "../_actions/categories";
 
 type Props = {
   trigger: React.ReactNode;
