@@ -207,7 +207,7 @@ const CreateTransactionModel = ({ trigger, type }: Props) => {
                       <PopoverContent
                         className="w-auto p-0"
                         align="start"
-                        remove="true"
+                        remove={true}
                       >
                         <Calendar
                           mode="single"

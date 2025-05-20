@@ -23,7 +23,7 @@ function PopoverContent({
   sideOffset = 4,
   ...props
 }: React.ComponentProps<typeof PopoverPrimitive.Content> & {
-  remove?: string;
+  remove?: boolean;
 }) {
   return props.remove ? (
     <PopoverPrimitive.Content
